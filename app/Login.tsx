@@ -1,47 +1,52 @@
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
 import { useRouter } from "expo-router";
+import { useState } from "react";
 
 export default function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const router = useRouter();
+
+  const handleLogin = () => {
+    if (!email || !password) {
+      Alert.alert("Error", "Please fill all fields");
+      return;
+    }
+
+    if (!email.includes("@")) {
+      Alert.alert("Error", "Invalid email");
+      return;
+    }
+
+    console.log("Login Email:", email);
+    console.log("Login Password:", password);
+
+  };
 
   return (
     <View style={styles.container}>
-      <Image
-        source={require("@/assets/images/Login.jpg")}
-        style={styles.image}
-        resizeMode="cover"
-      />
+      <Image source={require("@/assets/images/Login.jpg")} style={styles.image} />
 
       <View style={styles.card}>
         <Text style={styles.title}>Welcome Back</Text>
 
-        <TextInput
-          placeholder="Email"
-          style={styles.input}
-          keyboardType="email-address"
-          onChangeText={(e)=>console.log(e)}
-        />
+        <TextInput placeholder="Email" style={styles.input} value={email} onChangeText={setEmail} />
 
-        <TextInput
-          placeholder="Password"
-          style={styles.input}
-          secureTextEntry
-        />
+        <TextInput placeholder="Password" style={styles.input} secureTextEntry value={password} onChangeText={setPassword} />
 
-        <TouchableOpacity style={styles.btn} onPress={() => router.navigate("/")}>
+        <TouchableOpacity style={styles.btn} onPress={handleLogin}>
           <Text style={styles.btnText}>Login</Text>
         </TouchableOpacity>
 
         <Text style={styles.linkText}>
-          Don’t have an account?{" "}
-          <Text style={styles.link} onPress={() => router.navigate("/Signup")}>
-            Sign Up
-          </Text>
+          Don't have an account? <Text style={styles.link} onPress={() => router.push("/Signup")}>Sign Up</Text>
         </Text>
       </View>
     </View>
   );
 }
+
 
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: "#fff" },
@@ -78,3 +83,5 @@ const styles = StyleSheet.create({
 
   link: { fontWeight: "700" },
 });
+
+
