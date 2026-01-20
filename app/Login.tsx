@@ -1,6 +1,7 @@
-import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Alert } from "react-native";
+import { View, Text, Image, TextInput, StyleSheet, TouchableOpacity, Alert,ScrollView, FlatList } from "react-native";
 import { useRouter } from "expo-router";
 import { useState } from "react";
+// import {  } from "react-native-reanimated/lib/typescript/Animated";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -19,8 +20,8 @@ export default function Login() {
       return;
     }
 
-    console.log("Login Email:", email);
-    console.log("Login Password:", password);
+    // console.log("Login Email:", email);
+    // console.log("Login Password:", password);
 
   };
 
@@ -44,6 +45,7 @@ export default function Login() {
         </Text>
       </View>
     </View>
+    
   );
 }
 
